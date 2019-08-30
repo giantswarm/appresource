@@ -6,7 +6,6 @@ Package appresource implements a generic [operatorkit] resource for managing
 [app] custom resources. The custom resources are managed by [app-operator]
 which installs applications packaged as Helm charts into Kubernetes clusters.
 
-
 ## Example custom resource
 
 The app custom resources look something like this.
