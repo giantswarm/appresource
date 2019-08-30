@@ -46,6 +46,7 @@ spec:
 ## Used by
 
 - [cluster-operator]
+- [release-operator]
 
 ## License
 
@@ -54,6 +55,6 @@ for details.
 
 [app]: https://github.com/giantswarm/apiextensions/blob/master/pkg/apis/application/v1alpha1/app_types.go
 [app-operator]: https://github.com/giantswarm/app-operator
-[cluster-operator]: https://github.com/giantswarm/app-operator
+[cluster-operator]: https://github.com/giantswarm/cluster-operator
 [operatorkit]: https://github.com/giantswarm/operatorkit
 [release-operator]: https://github.com/giantswarm/release-operator
