@@ -1,4 +1,4 @@
-[![CircleCI](https: circleci.com/gh/giantswarm/appresource/tree/master.svg?style=shield)](https: circleci.com/gh/giantswarm/appresource/tree/master)
+[![CircleCI](https://circleci.com/gh/giantswarm/appresource.svg?style=svg)](https://circleci.com/gh/giantswarm/appresource)
 
 # appresource
 
