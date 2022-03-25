@@ -7,6 +7,7 @@ import (
 	"github.com/giantswarm/microerror"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
 )
@@ -20,7 +21,7 @@ func (r *Resource) ApplyDeleteChange(ctx context.Context, obj, deleteChange inte
 	for _, appCR := range appCRsToDelete {
 		r.logger.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("deleting App CR %#q in namespace %#q", appCR.Name, appCR.Namespace))
 
-		err := r.g8sClient.ApplicationV1alpha1().Apps(appCR.Namespace).Delete(appCR.Name, &metav1.DeleteOptions{})
+		err := r.ctrlClient.Delete(ctx, appCR, client.DeleteOptions{Raw: &metav1.DeleteOptions{}})
 		if apierrors.IsNotFound(err) {
 			r.logger.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("already deleted App CR %#q in namespace %#q", appCR.Name, appCR.Namespace))
 		} else if err != nil {

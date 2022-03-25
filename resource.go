@@ -5,11 +5,11 @@ import (
 	"github.com/giantswarm/micrologger"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
-	"github.com/giantswarm/apiextensions/pkg/clientset/versioned"
+	ctrlClient "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 type Config struct {
-	G8sClient   versioned.Interface
+	CtrlClient  ctrlClient.Client
 	Logger      micrologger.Logger
 	StateGetter StateGetter
 
@@ -17,7 +17,7 @@ type Config struct {
 }
 
 type Resource struct {
-	g8sClient   versioned.Interface
+	ctrlClient  ctrlClient.Client
 	logger      micrologger.Logger
 	stateGetter StateGetter
 
@@ -25,8 +25,8 @@ type Resource struct {
 }
 
 func New(config Config) (*Resource, error) {
-	if config.G8sClient == nil {
-		return nil, microerror.Maskf(invalidConfigError, "%T.G8sClient must not be empty", config)
+	if config.CtrlClient == nil {
+		return nil, microerror.Maskf(invalidConfigError, "%T.CtrlClient must not be empty", config)
 	}
 	if config.Logger == nil {
 		return nil, microerror.Maskf(invalidConfigError, "%T.Logger must not be empty", config)
@@ -40,7 +40,7 @@ func New(config Config) (*Resource, error) {
 	}
 
 	r := &Resource{
-		g8sClient:   config.G8sClient,
+		ctrlClient:  config.CtrlClient,
 		logger:      config.Logger,
 		stateGetter: config.StateGetter,
 
