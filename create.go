@@ -20,7 +20,7 @@ func (r *Resource) ApplyCreateChange(ctx context.Context, obj, createChange inte
 	for _, appCR := range appCRs {
 		r.logger.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("creating App CR %#q in namespace %#q", appCR.Name, appCR.Namespace))
 
-		_, err = r.g8sClient.ApplicationV1alpha1().Apps(appCR.Namespace).Create(appCR)
+		err = r.ctrlClient.Create(ctx, appCR)
 		if apierrors.IsAlreadyExists(err) {
 			r.logger.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("already created App CR %#q in namespace %#q", appCR.Name, appCR.Namespace))
 		} else if err != nil {
